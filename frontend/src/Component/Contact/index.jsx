@@ -40,7 +40,7 @@ const ContactPage = () => {
     setLoading(true);
 
     try {
-      const res = await fetch("https://adore-upde.onrender.com//contact", {
+      const res = await fetch("https://adore-upde.onrender.com/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

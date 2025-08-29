@@ -5,7 +5,7 @@ const Services = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await fetch("https://adore-upde.onrender.com/"); // adjust backend port
+        const response = await fetch("https://adore-upde.onrender.com/services"); // adjust backend port
         if (!response.ok) {
           throw new Error("Failed to fetch services");
         }
