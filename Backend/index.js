@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import {Pool} from "pg";
 import jwt from 'jsonwebtoken';
+import { v4 as uuidv4 } from 'uuid';
 
 dotenv.config();
 const app = express();
@@ -118,3 +119,26 @@ app.post('/login', async (req, res) => {
     }
 });
 
+
+app.post("/contact", async (req, res) => {
+  const { name, email, message } = req.body;
+
+  try {
+    // simple validation
+    if (!name || !email || !message) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
+    const id = uuidv4();
+
+    await pool.query(
+      "INSERT INTO messages (id, name, email, message) VALUES ($1, $2, $3, $4)",
+      [id, name, email, message]
+    );
+
+    res.status(201).json({ message: "Message sent successfully!" });
+  } catch (err) {
+    console.error("Error inserting message:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});

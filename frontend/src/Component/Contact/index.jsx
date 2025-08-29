@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 
 // Reusable Contact Info Item Component
@@ -10,6 +10,60 @@ const ContactInfoItem = ({ icon, text }) => (
 );
 
 const ContactPage = () => {
+  // state to hold form data
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  // handle input change
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [id]: value,
+    }));
+  };
+
+  // handle form submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!formData.name || !formData.email || !formData.message) {
+      alert("All fields are required!");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const res = await fetch("http://localhost:3000/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert(data.message || "Message sent successfully!");
+        setFormData({ name: "", email: "", message: "" }); // reset form
+      } else {
+        alert(data.error || "Failed to send message.");
+      }
+    } catch (err) {
+      console.error("Error:", err);
+      alert("Something went wrong. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <section className="bg-white font-sans antialiased">
       <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:py-24 lg:px-8">
@@ -35,7 +89,7 @@ const ContactPage = () => {
               Fill out the form below to send us a message.
             </p>
 
-            <form className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label
                   htmlFor="name"
@@ -46,6 +100,8 @@ const ContactPage = () => {
                 <input
                   id="name"
                   type="text"
+                  value={formData.name}
+                  onChange={handleChange}
                   placeholder="John Doe"
                   className="mt-1.5 w-full bg-white text-gray-900 border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all duration-300"
                 />
@@ -60,6 +116,8 @@ const ContactPage = () => {
                 <input
                   id="email"
                   type="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="john.doe@example.com"
                   className="mt-1.5 w-full bg-white text-gray-900 border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all duration-300"
                 />
@@ -74,15 +132,18 @@ const ContactPage = () => {
                 <textarea
                   id="message"
                   rows="5"
+                  value={formData.message}
+                  onChange={handleChange}
                   placeholder="Your message here..."
                   className="mt-1.5 w-full bg-white text-gray-900 border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all duration-300 resize-none"
                 ></textarea>
               </div>
               <button
                 type="submit"
-                className="w-full bg-amber-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-50 focus:ring-amber-500 transition-colors duration-300"
+                disabled={loading}
+                className="w-full bg-amber-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-50 focus:ring-amber-500 transition-colors duration-300 disabled:opacity-60"
               >
-                Send Message
+                {loading ? "Sending..." : "Send Message"}
               </button>
             </form>
           </div>
@@ -124,6 +185,11 @@ const ContactPage = () => {
           </div>
         </div>
       </div>
+      <footer className="bg-amber-400 text-white py-6">
+        <div className="max-w-7xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+          &copy; {new Date().getFullYear()} ADORE. All rights reserved.
+        </div>
+      </footer>
     </section>
   );
 };

@@ -129,14 +129,14 @@ const Home = () => {
             {products.map((item) => (
               <div
                 key={item.id}
-                className="bg-white shadow-lg rounded-2xl p-6 flex flex-col items-center text-center hover:scale-105 transition-transform"
+                className="bg-white shadow-lg rounded-2xl p-3 flex flex-col items-center text-center hover:scale-105 transition-transform"
               >
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="h-40 w-40 object-contain"
+                  className="h-30 w-30 object-contain"
                 />
-                <h3 className="text-xl font-bold mt-4 text-gray-900">
+                <h3 className="text-xl font-bold mt-3 text-gray-900">
                   {item.name}
                 </h3>
                 <p className="text-gray-500 text-sm">{item.category}</p>
@@ -146,7 +146,7 @@ const Home = () => {
                 <p className="text-xl font-semibold text-green-700 mt-4">
                   ₹ {item.price}
                 </p>
-                <button className="mt-4 w-full bg-amber-400 text-white py-2 rounded-xl shadow hover:bg-amber-500 transition duration-300">
+                <button className="mt-4 w-[80%] bg-amber-400 text-white py-2 rounded-xl shadow hover:bg-amber-500 transition duration-300">
                   Add to cart
                 </button>
               </div>
@@ -251,6 +251,11 @@ const Home = () => {
                 </span>
               </li>
             </ul>
+            <Link to="/contact">
+              <button className="mt-12 bg-amber-400 text-white px-8 py-4 rounded-lg text-lg font-medium hover:bg-amber-500 transition cursor-pointer shadow-lg">
+                Contact Us
+              </button>
+            </Link>
           </div>
           <div className="flex justify-center">
             <img
