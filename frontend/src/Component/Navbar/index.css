@@ -1,0 +1,15 @@
+.navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
+.image_logo{
+    height: 100px;
+    width: 100px;
+}
