@@ -9,7 +9,21 @@ import { v4 as uuidv4 } from 'uuid';
 dotenv.config();
 const app = express();
 
-app.use(cors({ origin: "http://localhost:5173", credentials: true },{ origin: "https://adore-two.vercel.app/", credentials: true }));
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://adore-two.vercel.app"
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true
+}));
 
 app.use(express.json());
 
