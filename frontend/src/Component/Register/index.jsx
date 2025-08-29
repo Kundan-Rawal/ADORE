@@ -66,7 +66,7 @@ const Register = () => {
         phone: formData.phone,
       };
 
-      const res = await axios.post("http://localhost:3000/register", payload);
+      const res = await axios.post("https://adore-upde.onrender.com/", payload);
       setMessage(res.data.message);
       setFormData({
         name: "",

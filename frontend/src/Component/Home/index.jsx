@@ -12,7 +12,7 @@ const Home = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await fetch("http://localhost:3000/services"); // adjust backend port
+        const response = await fetch("https://adore-upde.onrender.com//services"); // adjust backend port
         if (!response.ok) {
           throw new Error("Failed to fetch services");
         }
@@ -26,7 +26,7 @@ const Home = () => {
 
     const fetchProduct = async () => {
       try {
-        const response = await fetch("http://localhost:3000/products"); // adjust backend port
+        const response = await fetch("https://adore-upde.onrender.com//products"); // adjust backend port
         if (!response.ok) {
           throw new Error("Failed to fetch products");
         }
@@ -40,7 +40,7 @@ const Home = () => {
 
     const fetchnews = async () => {
       try {
-        const response = await fetch("http://localhost:3000/news"); // adjust backend port
+        const response = await fetch("https://adore-upde.onrender.com//news"); // adjust backend port
         if (!response.ok) {
           throw new Error("Failed to fetch news");
         }

@@ -7,7 +7,7 @@ const Products = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch("http://localhost:3000/products"); // adjust backend port
+        const response = await fetch("https://adore-upde.onrender.com/"); // adjust backend port
         if (!response.ok) {
           throw new Error("Failed to fetch products");
         }
