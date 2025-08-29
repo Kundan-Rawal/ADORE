@@ -6,6 +6,7 @@ import Login from "./Component/Login";
 import Register from "./Component/Register";
 import Products from "./Component/Products";
 import Contact from "./Component/Contact";
+import Profile from "./Component/Profile";
 import { Route, Routes } from "react-router-dom";
 
 import "./App.css";
@@ -26,8 +27,30 @@ function App() {
         />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route
+          path="/products"
+          element={
+            <ProtectedRoute>
+              <Products />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+            <ProtectedRoute>
+              <Contact />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </>
   );

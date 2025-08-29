@@ -156,3 +156,41 @@ app.post("/contact", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+app.get("/profile/:email", async (req, res) => {
+  const { email } = req.params;
+  try {
+    const userResult = await pool.query('SELECT id, name, email, phone FROM users WHERE email = $1', [email]);
+    if (userResult.rows.length === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.json(userResult.rows[0]);
+  } catch (e) {
+    console.error('Error fetching user profile:', e);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+
+}
+)
+
+app.put("/profile/:email", async (req, res) => {
+  const { email } = req.params;
+  const { name, phone } = req.body;
+
+  try {
+    const updateResult = await pool.query(
+      "UPDATE users SET name = $1, phone = $2 WHERE email = $3 RETURNING id, name, email, phone",
+      [name, phone, email]
+    );
+
+    if (updateResult.rows.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // ✅ Email stays the same, only name & phone are updated
+    res.json(updateResult.rows[0]);
+  } catch (e) {
+    console.error("Error updating user profile:", e);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});

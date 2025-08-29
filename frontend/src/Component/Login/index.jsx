@@ -53,6 +53,7 @@ const Login = () => {
           secure: true,
           sameSite: "strict",
         });
+        localStorage.setItem("userEmail", payload.email);
 
         setFormData({ email: "", password: "" });
 
