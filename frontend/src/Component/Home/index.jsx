@@ -1,7 +1,8 @@
 import "./index.css";
 import { useEffect, useState } from "react";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
-import cookies from "js-cookie";
+import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Home = () => {
   const [services, changeService] = useState([]);
@@ -57,185 +58,217 @@ const Home = () => {
   }, []);
 
   return (
-    <>
-      <div className="bg-yellow-100 w-[100%] h-[80vh] flex  justify-around items-center">
-        <div>
-          <h1 className="text-7xl text-cyan-950 font-extrabold font-serif">
-            Welcome to ADORE!
-          </h1>
-          <p className="text-3xl text-center font-serif">
-            Motivating youth for positive action.
-          </p>
+    <div className="bg-white font-sans">
+      {/* Hero Section */}
+      <section className="bg-yellow-50">
+        <div className="max-w-7xl min-h-[80vh] mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="text-center lg:text-left">
+            <h1 className="text-4xl md:text-5xl lg:text-7xl text-cyan-950 font-extrabold font-serif">
+              Welcome to ADORE!
+            </h1>
+            <p className="mt-4 text-xl md:text-2xl lg:text-3xl text-cyan-900 font-serif">
+              Motivating youth for positive action.
+            </p>
+          </div>
+          <div className="flex justify-center">
+            <img
+              src="https://cdn.dribbble.com/userupload/36884877/file/original-c2dd6dea7a84eb1ed27fac0d6d304200.png?resize=1200x900&vertical=center"
+              alt="Youth engagement illustration"
+              className="rounded-2xl shadow-xl  max-w-md w-full"
+            />
+          </div>
         </div>
-        <div>
-          <img
-            src="https://cdn.dribbble.com/userupload/36884877/file/original-c2dd6dea7a84eb1ed27fac0d6d304200.png?resize=1200x900&vertical=center"
-            className="h-[500px] w-[500px] rounded-2xl "
-          />
-        </div>
-      </div>
-      <div className="bg-white w-[100%] h-[80vh] flex flex-col justify-center items-center gap-5">
-        <h1 className="text-7xl text-cyan-950 font-extrabold font-serif">
-          Our Services
-        </h1>
-        <ul className="services-grid">
-          {services.map((service) => (
-            <li key={service.id} className="service-card">
-              <div className="icon-container">
-                <img src={service.icon} alt={service.name} />
+      </section>
+
+      {/* Services Section */}
+      <section className="bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 text-center">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl text-cyan-950 font-extrabold font-serif">
+            Our Services
+          </h2>
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 text-center">
+            {services.map((service) => (
+              <div
+                key={service.id}
+                className="p-8 bg-slate-50 rounded-2xl shadow-md border border-slate-200"
+              >
+                <div className="flex justify-center items-center h-20 w-20 bg-amber-100 rounded-full mx-auto">
+                  <img
+                    src={service.icon}
+                    alt={`${service.name} icon`}
+                    className="h-12 w-12 rounded-full"
+                  />
+                </div>
+                <h3 className="mt-6 text-xl font-bold text-cyan-950">
+                  {service.name}
+                </h3>
+                <p className="mt-2 text-gray-600">{service.description}</p>
               </div>
-              <h3>{service.name}</h3>
-              <p>{service.description}</p>
-            </li>
-          ))}
-        </ul>
-        <button className="bg-amber-400 text-white px-8 py-6 rounded-lg text-lg font-medium hover:bg-amber-500 transition cursor-pointer">
-          Learn More{" "}
-        </button>
-      </div>
-      <div className="bg-yellow-100 w-[100%] h-[80vh] flex  justify-around items-center">
-        <div>
-          <h1 className="text-7xl text-cyan-950 font-extrabold font-serif">
-            Products
-          </h1>
-          <button className="bg-amber-400 mt-4 text-white px-8 py-6 rounded-lg text-lg font-medium hover:bg-amber-500 transition cursor-pointer">
-            Browse All Products
-          </button>
+            ))}
+          </div>
+          <Link to="/services">
+            <button className="mt-12 bg-amber-400 text-white px-8 py-4 rounded-lg text-lg font-medium hover:bg-amber-500 transition cursor-pointer shadow-lg">
+              Learn More
+            </button>
+          </Link>
         </div>
-        <div className="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {products.map((item) => (
-            <div
-              key={item.id}
-              className="bg-white shadow-lg rounded-2xl p-5 flex flex-col items-center hover:scale-105 transition-transform"
-            >
-              <img
-                src={item.image}
-                alt={item.name}
-                className="h-40 w-40 object-contain"
-              />
-              <h2 className="text-xl font-bold mt-4">{item.name}</h2>
-              <p className="text-gray-500 text-sm">{item.category}</p>
-              <p className="text-gray-600 text-center mt-2 text-sm">
-                {item.description}
-              </p>
-              <p className="text-lg font-semibold text-green-700 mt-3">
-                ₹ {item.price}
-              </p>
-              <button className="mt-4 w-full bg-amber-400 text-white py-2 rounded-xl shadow hover:bg-amber-700 transition duration-300">
-                Add to cart
-              </button>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="bg-white w-[100%] h-[100vh] flex flex-col justify-center items-center gap-5 p-8">
-        <h1 className="text-7xl text-cyan-950 font-extrabold font-serif mb-5">
-          News Headlines
-        </h1>
-        <div className="flex flex-wrap justify-center gap-8">
-          {news.map((item) => (
-            <div
-              key={item.id}
-              className="w-full sm:w-[300px] md:w-[320px] lg:w-[340px] rounded-2xl overflow-hidden shadow-lg bg-white border border-amber-200 hover:shadow-2xl transition duration-300 flex flex-col"
-            >
-              
-              <div className="relative h-48 w-full bg-amber-100 flex items-center justify-center">
+      </section>
+
+      {/* Products Section */}
+      <section className="bg-yellow-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+          <div className="text-center">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl text-cyan-950 font-extrabold font-serif">
+              Our Products
+            </h2>
+            <p className="mt-4 text-lg text-cyan-900">
+              Explore items that inspire and support your journey.
+            </p>
+          </div>
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {products.map((item) => (
+              <div
+                key={item.id}
+                className="bg-white shadow-lg rounded-2xl p-6 flex flex-col items-center text-center hover:scale-105 transition-transform"
+              >
                 <img
                   src={item.image}
-                  alt={item.title}
-                  className="h-full w-full object-cover"
+                  alt={item.name}
+                  className="h-40 w-40 object-contain"
                 />
-                <span className="absolute top-3 right-3 bg-amber-500 text-white text-xs px-3 py-1 rounded-full shadow">
-                  {new Date(item.created_at).toLocaleDateString("en-GB", {
-                    day: "2-digit",
-                    month: "short",
-                  })}
-                </span>
-              </div>
-
-              <div className="p-6 flex flex-col flex-grow">
-                <h2 className="text-xl font-semibold text-gray-900 mb-3 hover:text-amber-600 transition">
-                  {item.title}
-                </h2>
-                <p className="text-sm text-gray-600 mb-4 flex-grow leading-relaxed">
+                <h3 className="text-xl font-bold mt-4 text-gray-900">
+                  {item.name}
+                </h3>
+                <p className="text-gray-500 text-sm">{item.category}</p>
+                <p className="text-gray-600 mt-2 text-sm flex-grow">
                   {item.description}
                 </p>
-
-                <button className="mt-auto bg-amber-500 text-white font-medium py-2 px-4 rounded-lg hover:bg-amber-600 transition duration-300">
-                  Read More →
+                <p className="text-xl font-semibold text-green-700 mt-4">
+                  ₹ {item.price}
+                </p>
+                <button className="mt-4 w-full bg-amber-400 text-white py-2 rounded-xl shadow hover:bg-amber-500 transition duration-300">
+                  Add to cart
                 </button>
               </div>
-            </div>
-          ))}
-        </div>
-        <div>
-          <button className="bg-amber-400 mt-4 text-white px-8 py-6 rounded-lg text-lg font-medium hover:bg-amber-500 transition cursor-pointer">
-            View All News
-          </button>
-        </div>
-      </div>
-      <div>
-        <section className="bg-white py-16 px-6 lg:px-20">
-          <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        
-            <div>
-              <h2 className="text-7xl font-bold font-serif text-cyan-950 mb-6">
-                Contact Us
-              </h2>
-              <p className="text-gray-600 mb-8 leading-relaxed">
-                If you have any questions or want to{" "}
-                <span className="font-semibold text-amber-600">
-                  get a free estimate
-                </span>{" "}
-                for your project, contact us via email or phone call. We will be
-                very happy to help you!
-              </p>
-
-              <ul className="space-y-6 text-gray-800">
-                <li className="flex items-center gap-4">
-                  <Phone className="w-6 h-6 text-amber-600" />
-                  <span className="text-lg">+91 98765 43210</span>
-                </li>
-                <li className="flex items-center gap-4">
-                  <Mail className="w-6 h-6 text-amber-600" />
-                  <span className="text-lg">contact@yourcompany.com</span>
-                </li>
-                <li className="flex items-center gap-4">
-                  <MapPin className="w-6 h-6 text-amber-600" />
-                  <span className="text-lg">
-                    123 Amber Street, Bhopal, MP 462001
-                  </span>
-                </li>
-                <li className="flex items-center gap-4">
-                  <Clock className="w-6 h-6 text-amber-600" />
-                  <span className="text-lg">
-                    Monday – Friday: 9:00 am – 6:00 pm
-                  </span>
-                </li>
-              </ul>
-              <button className="bg-amber-400 mt-4 text-white px-8 py-6 rounded-lg text-lg font-medium hover:bg-amber-500 transition cursor-pointer">
-                Get in Touch
+            ))}
+          </div>
+          <div className="text-center">
+            <Link to="/products">
+              <button className="mt-12 bg-amber-400 text-white px-8 py-4 rounded-lg text-lg font-medium hover:bg-amber-500 transition cursor-pointer shadow-lg">
+                Browse All Products
               </button>
-            </div>
+            </Link>
+          </div>
+        </div>
+      </section>
 
-            <div className="relative">
-              <div className="bg-amber-500 rounded-2xl h-full flex items-center justify-center ">
-                <img
-                  src="https://sdmntprnorthcentralus.oaiusercontent.com/files/00000000-0d90-622f-b783-f7cb25469b9a/raw?se=2025-08-28T21%3A02%3A23Z&sp=r&sv=2024-08-04&sr=b&scid=98b6f35a-1369-5f31-8f3d-77aac4657d09&skoid=71e8fa5c-90a9-4c17-827b-14c3005164d6&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-08-28T19%3A58%3A48Z&ske=2025-08-29T19%3A58%3A48Z&sks=b&skv=2024-08-04&sig=62xM0wZyiIkhaKOF7O1CQG6H80aY1vW3p0KfFsEQZ5w%3D"
-                  alt="Customer Support"
-                  className="rounded-xl shadow-xl"
-                />
+      {/* News Section */}
+      <section className="bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+          <div className="text-center">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl text-cyan-950 font-extrabold font-serif">
+              News Headlines
+            </h2>
+            <p className="mt-4 text-lg text-gray-500">
+              Stay updated with our latest activities and achievements.
+            </p>
+          </div>
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {news.map((item) => (
+              <div
+                key={item.id}
+                className="rounded-2xl overflow-hidden shadow-lg bg-white border border-gray-200 hover:shadow-2xl transition-shadow duration-300 flex flex-col"
+              >
+                <div className="relative h-56 w-full">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="h-full w-full object-cover"
+                  />
+                  <span className="absolute top-4 right-4 bg-amber-500 text-white text-xs px-3 py-1 rounded-full shadow">
+                    {new Date(item.created_at).toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "short",
+                    })}
+                  </span>
+                </div>
+                <div className="p-6 flex flex-col flex-grow">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-3 hover:text-amber-600 transition">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-gray-600 mb-4 flex-grow leading-relaxed">
+                    {item.description}
+                  </p>
+                  <button className="mt-auto self-start bg-amber-500 text-white font-medium py-2 px-5 rounded-lg hover:bg-amber-600 transition duration-300">
+                    Read More →
+                  </button>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
-        </section>
-        <footer className="bg-amber-400 text-white py-6 mt-8">
-          <div className="max-w-6xl mx-auto text-center">
-            &copy; 2024 ADORE. All rights reserved.
+          <div className="text-center">
+            <button className="mt-12 bg-amber-400 text-white px-8 py-4 rounded-lg text-lg font-medium hover:bg-amber-500 transition cursor-pointer shadow-lg">
+              View All News
+            </button>
           </div>
-        </footer>
-      </div>
-    </>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="bg-yellow-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-serif text-cyan-950 mb-6">
+              Contact Us
+            </h2>
+            <p className="text-gray-700 mb-8 leading-relaxed">
+              If you have any questions or want to{" "}
+              <span className="font-semibold text-amber-600">
+                get a free estimate
+              </span>{" "}
+              for your project, contact us via email or phone call. We will be
+              very happy to help you!
+            </p>
+            <ul className="space-y-5 text-gray-800">
+              <li className="flex items-center gap-4">
+                <Phone className="w-6 h-6 text-amber-600" />
+                <span className="text-lg">+91 98765 43210</span>
+              </li>
+              <li className="flex items-center gap-4">
+                <Mail className="w-6 h-6 text-amber-600" />
+                <span className="text-lg">contact@yourcompany.com</span>
+              </li>
+              <li className="flex items-center gap-4">
+                <MapPin className="w-6 h-6 text-amber-600" />
+                <span className="text-lg">
+                  123 Amber Street, Bhopal, MP 462001
+                </span>
+              </li>
+              <li className="flex items-center gap-4">
+                <Clock className="w-6 h-6 text-amber-600" />
+                <span className="text-lg">
+                  Monday – Friday: 9:00 am – 6:00 pm
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div className="flex justify-center">
+            <img
+              src="https://res.cloudinary.com/dsswbc0tx/image/upload/v1756474076/86c7ad3b-9e04-433c-9849-5b04c1c0f757_oelf2o.png"
+              alt="Customer Support"
+              className="rounded-2xl shadow-xl max-w-md w-full"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-amber-400 text-white py-6">
+        <div className="max-w-7xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+          &copy; {new Date().getFullYear()} ADORE. All rights reserved.
+        </div>
+      </footer>
+    </div>
   );
 };
 export default Home;
