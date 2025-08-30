@@ -3,7 +3,7 @@
 ADORE is a full-stack web application designed to help **rural communities easily find and access essential products** such as groceries, medicines, and services.  
 The platform allows users to register, log in, browse products, and securely manage their profiles.
 
-Deployed Live Link : https://adore-two.vercel.app/login
+Deployed Live Link : https://adore-two.vercel.app
 
 ---
 
