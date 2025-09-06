@@ -3,10 +3,12 @@
 ADORE is a full-stack web application designed to help **rural communities easily find and access essential products** such as groceries, medicines, and services.  
 The platform allows users to register, log in, browse products, and securely manage their profiles.
 
+Deployed Live Link : https://adore-two.vercel.app
+
 ---
 
 ## 📂 Project Structure
-
+```
 ADORE/
 │
 ├── Backend/              # Node.js + Express + PostgreSQL backend
@@ -39,7 +41,7 @@ ADORE/
 └── .gitignore
 
 ---
-
+```
 ## 🛠️ Tech Stack Used
 
 **Frontend**  
@@ -75,9 +77,7 @@ npm install
 
 - Create a `.env` file inside `Backend/`:
 ```
-PORT=5000
-DATABASE_URL=postgresql://<username>:<password>@localhost:5432/adoredb
-JWT_SECRET=your_jwt_secret
+DB_URL='postgresql://neondb_owner:npg_OtkX5nUVp3Ax@ep-wild-dew-a17s9hpe-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
 ```
 
 - Start the backend:
@@ -114,4 +114,10 @@ npm run dev
 ## 🔑 Demo Login (Optional for Reviewers)
 
 You can choose to register and create a credential and login accordingly no need for any demo logins. 
+but if you want here is the required demo.
+
+```bash
+email: demo@gmail.com
+password: demodemo
+```
 
